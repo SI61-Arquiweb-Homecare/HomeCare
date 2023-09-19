@@ -8,7 +8,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
-import java.util.Optional;
+
 
 @Service
 public class TiposervicioServiceImplement implements ITiposervicioService {
@@ -28,11 +28,6 @@ public class TiposervicioServiceImplement implements ITiposervicioService {
     @Override
     public void delete(int idTiposervicio) {
         tiR.deleteById(idTiposervicio);
-    }
-
-    @Override
-    public Optional<Tiposervicio> listarId(int idTiposervicio) {
-        return Optional.of(tiR.findById(idTiposervicio).orElse(new Tiposervicio()));
     }
 
     @Override
