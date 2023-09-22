@@ -7,7 +7,7 @@ public class RoleDto {
 
     private String rol;
 
-    private Usuario usuario;
+    
 
     public Long getId() {
         return id;
