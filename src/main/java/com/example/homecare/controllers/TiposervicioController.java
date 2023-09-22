@@ -41,6 +41,7 @@ public class TiposervicioController {
         TiposervicioDto dto = m.map(tiS.ListId(id), TiposervicioDto.class);
         return dto;
     }
+    
     @PutMapping
     public void goUpdate(@RequestBody TiposervicioDto dto){
         ModelMapper m = new ModelMapper();
