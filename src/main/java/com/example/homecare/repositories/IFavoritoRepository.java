@@ -1,4 +1,8 @@
 package com.example.homecare.repositories;
 
-public interface IFavoritoRepository {
+import org.springframework.data.jpa.repository.JpaRepository;
+
+import com.example.homecare.entities.Favorito;
+
+public interface IFavoritoRepository extends JpaRepository<Favorito,Integer>{
 }

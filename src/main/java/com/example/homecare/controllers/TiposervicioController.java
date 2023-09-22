@@ -48,5 +48,4 @@ public class TiposervicioController {
         Tiposervicio ti = m.map(dto, Tiposervicio.class);
         tiS.insert(ti);
     }
-
 }

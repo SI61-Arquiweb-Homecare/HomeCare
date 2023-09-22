@@ -31,8 +31,8 @@ public class TiposervicioServiceImplement implements ITiposervicioService {
     }
 
     @Override
-    public List<Tiposervicio> search(String nombre) {
-        return tiR.search(nombre);
+    public Tiposervicio ListId(int idAuthor) {
+        return tiR.findById(idAuthor).orElse(new Tiposervicio());
     }
 
 }

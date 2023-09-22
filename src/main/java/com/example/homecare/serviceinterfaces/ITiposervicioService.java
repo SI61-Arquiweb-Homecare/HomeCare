@@ -12,5 +12,7 @@ public interface ITiposervicioService {
 
     public void delete(int idTiposervicio);
 
-    List<Tiposervicio>search(String nombre);
+    public Tiposervicio ListId(int id);
+
+    
 }
