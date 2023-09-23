@@ -8,7 +8,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
-
+import java.util.Optional;
 
 @Service
 public class TiposervicioServiceImplement implements ITiposervicioService {
@@ -19,20 +19,19 @@ public class TiposervicioServiceImplement implements ITiposervicioService {
     public void insert(Tiposervicio tiposervicio) {
         tiR.save(tiposervicio);
     }
-
     @Override
-    public List<Tiposervicio> list() {
+    public List<Tiposervicio> list(){
         return tiR.findAll();
     }
 
     @Override
-    public void delete(int idTiposervicio) {
-        tiR.deleteById(idTiposervicio);
+    public void delete(int id) {
+        tiR.deleteById(id);
     }
 
     @Override
-    public List<Tiposervicio> search(String nombre) {
-        return tiR.search(nombre);
+    public Tiposervicio ListId(int idAuthor) {
+        return tiR.findById(idAuthor).orElse(new Tiposervicio());
     }
 
 }

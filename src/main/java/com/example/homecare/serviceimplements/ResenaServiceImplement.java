@@ -34,4 +34,9 @@ public class ResenaServiceImplement implements IResenaService {
     public Resena ListId(int id) {
         return rR.findById(id).orElse(new Resena());
     }
+
+    @Override
+    public List<String>[] promedioCalificacionServicio() {
+        return rR.promedioCalificacionServicio();
+    }
 }
