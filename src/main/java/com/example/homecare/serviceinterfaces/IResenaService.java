@@ -13,4 +13,5 @@ public interface IResenaService {
     public void delete(int id);
 
     public Resena ListId(int id);
+    public List<String>[] promedioCalificacionServicio();
 }
