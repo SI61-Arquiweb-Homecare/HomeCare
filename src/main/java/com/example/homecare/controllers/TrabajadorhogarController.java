@@ -1,51 +1,51 @@
 package com.example.homecare.controllers;
 
 import com.example.homecare.dtos.TrabajadoredadpromedioDto;
+import com.example.homecare.dtos.TrabajadorhogarDto;
 import com.example.homecare.entities.Trabajadorhogar;
 import com.example.homecare.serviceinterfaces.ITrabajadorhogarService;
+import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
 import java.text.ParseException;
 import java.util.List;
 import java.util.Optional;
+import java.util.stream.Collectors;
 
 @RestController
 @RequestMapping("/trabajadorhogar")
 public class TrabajadorhogarController {
+
     @Autowired
     private ITrabajadorhogarService tService;
-
     @PostMapping
-    public void registrar(@RequestBody Trabajadorhogar t){
-        tService.insert(t);
+    public void registrar(@RequestBody TrabajadorhogarDto dto) {
+        ModelMapper m = new ModelMapper();
+        Trabajadorhogar t = m.map(dto, Trabajadorhogar.class);
+        tService.insertar(t);
     }
 
     @GetMapping
-    public List<Trabajadorhogar> listar() {return tService.list();}
+    public List<TrabajadorhogarDto> listar() {
+        return tService.listar().stream().map(x->{
+            ModelMapper m=new ModelMapper();
+            return m.map(x,TrabajadorhogarDto.class);
+
+        }).collect(Collectors.toList());
+    }
 
     @DeleteMapping("/{id}")
-    public void eliminar(@PathVariable("id") Integer id){
+    public void delete(@PathVariable("id")Integer id){
         tService.delete(id);
     }
-    @PutMapping
-    public void modificar(@RequestBody Trabajadorhogar t){
-        tService.insert(t);
-    }
-    @PostMapping("/buscar")
-    public List<Trabajadorhogar> buscar(@RequestBody String nombre) throws ParseException {
-        List<Trabajadorhogar> listaTrabajadores;
-        listaTrabajadores = tService.search(nombre);
-        return listaTrabajadores;
 
-    }
     @GetMapping("/{id}")
-    public Optional<Trabajadorhogar> listarId(@PathVariable("id") Integer id){
-        return  tService.listarId(id);
+    public TrabajadorhogarDto ListId(@PathVariable("id")Integer id){
+        ModelMapper m = new ModelMapper();
+        TrabajadorhogarDto dto = m.map(tService.ListId(id), TrabajadorhogarDto.class);
+        return dto;
     }
-
-    @PostMapping("/buscarnombre")
-    public List<Trabajadorhogar> buscarnombre(@RequestBody String nombre) {return  tService.buscarnombre(nombre);}
 
     @GetMapping("/promedioedad")
     public List<TrabajadoredadpromedioDto> promedioedad() {
