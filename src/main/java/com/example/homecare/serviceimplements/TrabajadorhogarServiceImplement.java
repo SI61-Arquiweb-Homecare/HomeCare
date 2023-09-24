@@ -9,39 +9,28 @@ import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Optional;
 
 @Service
 public class TrabajadorhogarServiceImplement implements ITrabajadorhogarService {
     @Autowired
     private ITrabajadorhogarRepository tR;
-
     @Override
-    public void insert(Trabajadorhogar trabajadorhogar) {
+    public void insertar(Trabajadorhogar trabajadorhogar) {
         tR.save(trabajadorhogar);
     }
-
     @Override
-    public List<Trabajadorhogar> list() {
+    public List<Trabajadorhogar> listar() {
         return tR.findAll();
     }
 
     @Override
-    public void delete(int id){
+    public void delete(int id) {
         tR.deleteById(id);
     }
 
     @Override
-    public Optional<Trabajadorhogar> listarId(int idTrabajador){
-        return Optional.of(tR.findById(idTrabajador).orElse(new Trabajadorhogar()));
-    }
-    @Override
-    public List<Trabajadorhogar> search(String nombre){return tR.search(nombre);
-    }
-
-    @Override
-    public List<Trabajadorhogar> buscarnombre(String nombre) {
-        return tR.findByNombre(nombre);
+    public Trabajadorhogar ListId(int id) {
+        return tR.findById(id).orElse(new Trabajadorhogar());
     }
 
     @Override

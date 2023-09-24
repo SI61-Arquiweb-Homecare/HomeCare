@@ -7,17 +7,12 @@ import java.util.List;
 import java.util.Optional;
 
 public interface ITrabajadorhogarService {
-    public void insert(Trabajadorhogar trabajadorhogar);
+    public void insertar(Trabajadorhogar trabajadorhogar);
+    List<Trabajadorhogar> listar();
 
-    List<Trabajadorhogar>list();
+    public void delete(int id);
 
-    public void delete(int idTrabajador);
-
-    public Optional<Trabajadorhogar> listarId(int idTrabajador);
-
-    List<Trabajadorhogar>search(String nombre);
-
-    List<Trabajadorhogar> buscarnombre(String nombre);
+    public Trabajadorhogar ListId(int id);
 
     public List<TrabajadoredadpromedioDto> reporte04();
 }
