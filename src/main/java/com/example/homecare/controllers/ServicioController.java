@@ -1,36 +1,55 @@
 package com.example.homecare.controllers;
 
 
+import com.example.homecare.dtos.ServicioDto;
 import com.example.homecare.entities.Servicio;
 import com.example.homecare.serviceinterfaces.IServicioService;
+import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
+
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
-import java.util.Optional;
+import java.util.stream.Collectors;
 
 @RestController
 @RequestMapping("/servicio")
 public class ServicioController {
     @Autowired
-    private IServicioService sService;
+    private IServicioService sS;
 
     @PostMapping
-    public void registar(@RequestBody Servicio s){
-        sService.Insert(s);
+    public void registrar(@RequestBody ServicioDto dto) {
+        ModelMapper m = new ModelMapper();
+        Servicio s = m.map(dto, Servicio.class);
+        sS.insertar(s);
     }
 
     @GetMapping
-    public List<Servicio> listar() {return sService.list();}
+    public List<ServicioDto> listar() {
+        return sS.listar().stream().map(x->{
+            ModelMapper m=new ModelMapper();
+            return m.map(x,ServicioDto.class);
+
+        }).collect(Collectors.toList());
+    }
 
     @DeleteMapping("/{id}")
-    public void eliminate(@PathVariable("id") Integer id){sService.delete(id);}
-
-    @PutMapping
-    public void modificar(@RequestBody Servicio servicio) {sService.Insert(servicio);}
+    public void delete(@PathVariable("id")Integer id){
+        sS.delete(id);
+    }
 
     @GetMapping("/{id}")
-    public Optional<Servicio> listarId(@PathVariable("id") Integer id) {
-        return sService.ListarId(id);
+    public ServicioDto ListId(@PathVariable("id")Integer id){
+        ModelMapper m = new ModelMapper();
+        ServicioDto dto = m.map(sS.ListId(id), ServicioDto.class);
+        return dto;
+    }
+
+    @PutMapping
+    public void goUpdate(@RequestBody ServicioDto dto){
+        ModelMapper m = new ModelMapper();
+        Servicio s = m.map(dto, Servicio.class);
+        sS.insertar(s);
     }
 }

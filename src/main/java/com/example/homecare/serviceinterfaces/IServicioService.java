@@ -7,12 +7,12 @@ import java.util.Optional;
 
 public interface IServicioService {
 
-    public void Insert(Servicio servicio);
+    public void insertar(Servicio servicio);
 
-    List<Servicio>list();
+    List<Servicio> listar();
 
-    public void delete(int idServicio);
+    public void delete(int id);
 
-    public Optional<Servicio>ListarId(int idServicio);
+    public Servicio ListId(int id);
 
 }
