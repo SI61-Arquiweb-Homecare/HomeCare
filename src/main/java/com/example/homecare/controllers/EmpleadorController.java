@@ -1,48 +1,54 @@
 package com.example.homecare.controllers;
 
+import com.example.homecare.dtos.EmpleadorDto;
 import com.example.homecare.entities.Empleador;
 import com.example.homecare.serviceinterfaces.IEmpleadorService;
+import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
-import java.util.Optional;
+import java.util.stream.Collectors;
 
 @RestController
 @RequestMapping("/empleador")
 public class EmpleadorController {
     @Autowired
-    private IEmpleadorService eService;
+    private IEmpleadorService eS;
 
     @PostMapping
-    public void registrar(@RequestBody Empleador e){
-        eService.insert(e);
+    public void registrar(@RequestBody EmpleadorDto dto) {
+        ModelMapper m = new ModelMapper();
+        Empleador e = m.map(dto, Empleador.class);
+        eS.insert(e);
     }
 
     @GetMapping
-    public List<Empleador> listar() {return eService.list();}
+    public List<EmpleadorDto> listar() {
+        return eS.listar().stream().map(x->{
+            ModelMapper m=new ModelMapper();
+            return m.map(x,EmpleadorDto.class);
+
+        }).collect(Collectors.toList());
+    }
 
     @DeleteMapping("/{id}")
-    public void eliminar(@PathVariable("id") Integer id){
-        eService.delete(id);
-    }
-    @PutMapping
-    public void modificar(@RequestBody Empleador empleador){
-        eService.insert(empleador);
-    }
-
-    @PostMapping("/buscar")
-    public List<Empleador> buscar(@RequestBody Empleador empleador)
-    {
-        List<Empleador> lista;
-        empleador.setNombre(empleador.getNombre());
-        lista=eService.search(empleador.getNombre());
-        return lista;
+    public void delete(@PathVariable("id")Integer id){
+        eS.delete(id);
     }
 
     @GetMapping("/{id}")
-    public Optional<Empleador> listarId(@PathVariable("id") Integer id) {return eService.listarId(id);}
+    public EmpleadorDto ListId(@PathVariable("id")Integer id){
+        ModelMapper m = new ModelMapper();
+        EmpleadorDto dto = m.map(eS.ListId(id), EmpleadorDto.class);
+        return dto;
+    }
 
-    @PostMapping("/buscarnombre")
-    public List<Empleador> buscarnombre(@RequestBody String nombre) {return  eService.buscarnombre(nombre);}
+    @PutMapping
+    public void goUpdate(@RequestBody EmpleadorDto dto){
+        ModelMapper m = new ModelMapper();
+        Empleador e = m.map(dto, Empleador.class);
+        eS.insert(e);
+    }
 }
+
