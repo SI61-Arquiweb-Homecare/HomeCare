@@ -1,93 +1,53 @@
 package com.example.homecare.entities;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 import javax.persistence.*;
 
 @Entity
 @Table(name = "Empleador")
 public class Empleador {
+
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private int idEmpleador;
-    @Column(name = "nombre", length = 50, nullable = false)
-    private String nombre;
-
-    @Column(name = "apellido", length = 50, nullable = false)
-    private String apellido;
-    @Column(name = "edad", length = 3, nullable = false)
-    private int edad;
-    @Column(name = "correo", length = 30, nullable = false)
-    private String correo;
-    @Column(name = "telefono", length = 9, nullable = false)
-    private int telefono;
-    @Column(name = "direccion", length = 50, nullable = false)
-    private String direccion;
+    private int id;
+    @Column(name = "Descripcion_Empleador",length = 200,nullable = false)
+    private String descripcion_empleador;
+    @ManyToOne
+    @JsonIgnore
+    @JoinColumn(name = "Usuario_id")
+    private Usuario usuario;
 
     public Empleador() {
     }
 
-    public Empleador(int idEmpleador, String nombre, String apellido, int edad, String correo, int telefono, String direccion) {
-        this.idEmpleador = idEmpleador;
-        this.nombre = nombre;
-        this.apellido = apellido;
-        this.edad = edad;
-        this.correo = correo;
-        this.telefono = telefono;
-        this.direccion = direccion;
+    public Empleador(int id, String descripcion_empleador, Usuario usuario) {
+        this.id = id;
+        this.descripcion_empleador = descripcion_empleador;
+        this.usuario = usuario;
     }
 
-    public int getIdEmpleador() {
-        return idEmpleador;
+    public int getId() {
+        return id;
     }
 
-    public void setIdEmpleador(int idEmpleador) {
-        this.idEmpleador = idEmpleador;
+    public void setId(int id) {
+        this.id = id;
     }
 
-    public String getNombre() {
-        return nombre;
+    public String getDescripcion_empleador() {
+        return descripcion_empleador;
     }
 
-    public void setNombre(String nombre) {
-        this.nombre = nombre;
+    public void setDescripcion_empleador(String descripcion_empleador) {
+        this.descripcion_empleador = descripcion_empleador;
     }
 
-    public String getApellido() {
-        return apellido;
+    public Usuario getUsuario() {
+        return usuario;
     }
 
-    public void setApellido(String apellido) {
-        this.apellido = apellido;
-    }
-
-    public int getEdad() {
-        return edad;
-    }
-
-    public void setEdad(int edad) {
-        this.edad = edad;
-    }
-
-    public String getCorreo() {
-        return correo;
-    }
-
-    public void setCorreo(String correo) {
-        this.correo = correo;
-    }
-
-    public int getTelefono() {
-        return telefono;
-    }
-
-    public void setTelefono(int telefono) {
-        this.telefono = telefono;
-    }
-
-    public String getDireccion() {
-        return direccion;
-    }
-
-    public void setDireccion(String direccion) {
-        this.direccion = direccion;
+    public void setUsuario(Usuario usuario) {
+        this.usuario = usuario;
     }
 }

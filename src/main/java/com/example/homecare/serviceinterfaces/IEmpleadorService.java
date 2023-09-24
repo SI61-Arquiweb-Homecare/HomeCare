@@ -7,14 +7,11 @@ import java.util.Optional;
 
 public interface IEmpleadorService {
     public void insert(Empleador empleador);
-    List<Empleador> list();
 
-    public void delete (int Id);
+    List<Empleador> listar();
 
-    public Optional<Empleador>listarId(int Id);
+    public void delete(int id);
 
-    List<Empleador> search(String nombre);
-
-    List<Empleador> buscarnombre(String nombre);
+    public Empleador ListId(int id);
 
 }
