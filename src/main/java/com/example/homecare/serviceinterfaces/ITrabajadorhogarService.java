@@ -1,5 +1,6 @@
 package com.example.homecare.serviceinterfaces;
 
+import com.example.homecare.dtos.TrabajadoredadpromedioDto;
 import com.example.homecare.entities.Trabajadorhogar;
 
 import java.util.List;
@@ -17,4 +18,6 @@ public interface ITrabajadorhogarService {
     List<Trabajadorhogar>search(String nombre);
 
     List<Trabajadorhogar> buscarnombre(String nombre);
+
+    public List<TrabajadoredadpromedioDto> reporte04();
 }
