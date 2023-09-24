@@ -1,5 +1,6 @@
 package com.example.homecare.controllers;
 
+import com.example.homecare.dtos.TrabajadoredadpromedioDto;
 import com.example.homecare.entities.Trabajadorhogar;
 import com.example.homecare.serviceinterfaces.ITrabajadorhogarService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -45,4 +46,10 @@ public class TrabajadorhogarController {
 
     @PostMapping("/buscarnombre")
     public List<Trabajadorhogar> buscarnombre(@RequestBody String nombre) {return  tService.buscarnombre(nombre);}
+
+    @GetMapping("/promedioedad")
+    public List<TrabajadoredadpromedioDto> promedioedad() {
+        List<TrabajadoredadpromedioDto> TrabajadorEdadPromedioDTO = tService.reporte04();
+        return TrabajadorEdadPromedioDTO;
+    }
 }

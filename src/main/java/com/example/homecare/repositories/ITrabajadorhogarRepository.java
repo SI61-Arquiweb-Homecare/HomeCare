@@ -13,4 +13,9 @@ public interface ITrabajadorhogarRepository extends JpaRepository<Trabajadorhoga
     @Query("from Trabajadorhogar p where p.nombre like %:nombre")
     List<Trabajadorhogar> search(@Param("nombre")String nombre);
     List<Trabajadorhogar> findByNombre(String valor);
+
+    @Query(value = "select round(avg(t.edad_trabajador),3) as edadpromedio, count(t.id_trabajador) as totaltrabajadores\n" +
+            "from trabajador t\n;", nativeQuery = true)
+    List<String[]> promedioedad();
+
 }
