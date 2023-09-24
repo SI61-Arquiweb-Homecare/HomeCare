@@ -13,19 +13,23 @@ import java.util.Optional;
 public class ServicioServiceImplement implements IServicioService {
     @Autowired
     private IServicioRepository sR;
+    @Override
+    public void insertar(Servicio servicio) {
+        sR.save(servicio);
+    }
+    @Override
+    public List<Servicio> listar() {
+        return sR.findAll();
+    }
 
     @Override
-    public void Insert(Servicio servicio) {sR.save(servicio);}
+    public void delete(int id) {
+        sR.deleteById(id);
+    }
 
     @Override
-    public List<Servicio> list() {return sR.findAll();}
-
-    @Override
-    public void delete(int idServicio) {sR.deleteById(idServicio);}
-
-    @Override
-    public Optional<Servicio> ListarId(int idServicio){
-        return Optional.of(sR.findById(idServicio).orElse(new Servicio()));
+    public Servicio ListId(int id) {
+        return sR.findById(id).orElse(new Servicio());
     }
 
 }
