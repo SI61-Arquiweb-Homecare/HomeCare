@@ -5,6 +5,7 @@ import com.example.homecare.entities.Empleador;
 import com.example.homecare.serviceinterfaces.IEmpleadorService;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -33,6 +34,7 @@ public class EmpleadorController {
     }
 
     @DeleteMapping("/{id}")
+    @PreAuthorize("hasAuthority('ADMIN')")
     public void delete(@PathVariable("id")Integer id){
         eS.delete(id);
     }
@@ -45,6 +47,7 @@ public class EmpleadorController {
     }
 
     @PutMapping
+    @PreAuthorize("hasAuthority('ADMIN')")
     public void goUpdate(@RequestBody EmpleadorDto dto){
         ModelMapper m = new ModelMapper();
         Empleador e = m.map(dto, Empleador.class);

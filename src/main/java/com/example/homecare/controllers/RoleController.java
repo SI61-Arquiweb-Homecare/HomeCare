@@ -7,6 +7,7 @@ import com.example.homecare.serviceinterfaces.IRoleService;
 
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -41,6 +42,7 @@ public class RoleController {
         return dto;
     }
     @PutMapping
+    @PreAuthorize("hasAuthority('ADMIN')")
     public void goUpdate(@RequestBody RoleDto dto){
         ModelMapper m = new ModelMapper();
         Role e = m.map(dto, Role.class);
