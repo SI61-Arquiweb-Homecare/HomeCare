@@ -5,7 +5,7 @@ import com.example.homecare.entities.Tiposervicio;
 import com.example.homecare.serviceinterfaces.ITiposervicioService;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
-
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -18,6 +18,7 @@ public class TiposervicioController {
     private ITiposervicioService tiS;
 
     @PostMapping
+    @PreAuthorize("hasAuthority('ADMIN') or hasAuthority('USER')")
     public void insert(@RequestBody TiposervicioDto dto){
         ModelMapper m = new ModelMapper();
         Tiposervicio ti = m.map(dto,Tiposervicio.class);
@@ -25,6 +26,7 @@ public class TiposervicioController {
     }
 
     @GetMapping
+    @PreAuthorize("hasAuthority('ADMIN') or hasAuthority('USER')")
     public List<TiposervicioDto> list(){
         return tiS.list().stream().map(x->{
             ModelMapper m = new ModelMapper();
@@ -32,6 +34,7 @@ public class TiposervicioController {
         }).collect(Collectors.toList());
     }
     @DeleteMapping("/{id}")
+    @PreAuthorize("hasAuthority('ADMIN') or hasAuthority('USER')")
     public void delete(@PathVariable("id")Integer id){
         tiS.delete(id);
     }
@@ -42,6 +45,7 @@ public class TiposervicioController {
         return dto;
     }
     @PutMapping
+    @PreAuthorize("hasAuthority('ADMIN') or hasAuthority('USER')")
     public void goUpdate(@RequestBody TiposervicioDto dto){
         ModelMapper m = new ModelMapper();
         Tiposervicio ti = m.map(dto, Tiposervicio.class);

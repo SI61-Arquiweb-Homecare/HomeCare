@@ -7,6 +7,7 @@ import com.example.homecare.serviceinterfaces.IServicioService;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -35,6 +36,7 @@ public class ServicioController {
     }
 
     @DeleteMapping("/{id}")
+    @PreAuthorize("hasAuthority('ADMIN')")
     public void delete(@PathVariable("id")Integer id){
         sS.delete(id);
     }
@@ -47,6 +49,7 @@ public class ServicioController {
     }
 
     @PutMapping
+    @PreAuthorize("hasAuthority('ADMIN')")
     public void goUpdate(@RequestBody ServicioDto dto){
         ModelMapper m = new ModelMapper();
         Servicio s = m.map(dto, Servicio.class);
